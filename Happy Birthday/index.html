@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Amanda 🎉</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden; /* importante pros corações */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            z-index: 2;
+        }
+
+        .music-buttons button {
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 8px;
+            border-radius: 8px;
+            border: none;
+            z-index: 2;
+        }
+
+        /* Carrossel */
+        .carousel {
+            position: relative;
+            display: none;
+            max-width: 90vw;
+            max-height: 70vh;
+            z-index: 2;
+        }
+
+        .carousel img {
+            max-width: 100%;
+            max-height: 70vh;
+            border-radius: 15px;
+        }
+
+        /* Setas */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px 12px;
+            cursor: pointer;
+            user-select: none;
+            border-radius: 8px;
+        }
+
+        .arrow-left {
+            left: -50px;
+        }
+
+        .arrow-right {
+            right: -50px;
+        }
+
+        /* Texto final */
+        #finalText {
+            display: none;
+            font-size: 28px;
+            line-height: 1.5;
+            max-width: 90%;
+            z-index: 2;
+        }
+
+        /* Corações */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 24px;
+            animation: floatUp 6s linear forwards;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎂 Feliz Aniversário, Amanda! 🎉</h1>
+
+    <!-- Botões de música -->
+    <div class="music-buttons" id="musicButtons">
+        <button onclick="playMusic('Poesia Acústica 1.mp3')">🎵 Poesia Acústica 1</button>
+        <button onclick="playMusic('Nocaute.mp3')">🎵 Nocaute</button>
+    </div>
+
+    <audio id="music" loop></audio>
+
+    <!-- Carrossel -->
+    <div class="carousel" id="carousel">
+        <div class="arrow arrow-left" onclick="prevImage()">&#10094;</div>
+        <img id="carouselImage" src="foto1.jpeg" alt="Foto de aniversário">
+        <div class="arrow arrow-right" onclick="nextImage()">&#10095;</div>
+    </div>
+
+    <!-- Texto final -->
+    <div id="finalText">
+        <p>
+            Oi Amanda, tudo bem? Espero que sim! Chegou esse dia maravilhoso que é seu dia, o seu aniversário.
+            Parabéns Amanda, tudo de bom para você viu! Que Deus te abençoe muito, que tenha muitos anos de vida
+            e aproveite muito esse dia especial, pode contar comigo sempre viu! Aproveita seu dia! Te amo muito ❤️
+        </p>
+
+        <p style="margin-top: 30px; font-weight: bold;">
+            Espero que você tenha gostado ❤️
+        </p>
+
+        <p style="margin-top: 20px;">
+            – Davi Honorino
+        </p>
+    </div>
+
+    <script>
+        const music = document.getElementById("music");
+        const musicButtons = document.getElementById("musicButtons");
+        const carousel = document.getElementById("carousel");
+        const carouselImage = document.getElementById("carouselImage");
+        const finalText = document.getElementById("finalText");
+
+        const images = ["foto1.jpeg", "foto2.jpeg", "foto3.jpeg", "foto4.jpeg", "foto5.jpeg", "foto6.jpeg"];
+        let currentIndex = 0;
+
+        function playMusic(file) {
+            music.src = file;
+            music.play();
+
+            musicButtons.style.display = "none";
+            carousel.style.display = "block";
+            carouselImage.src = images[currentIndex];
+        }
+
+        function nextImage() {
+            if (currentIndex === images.length - 1) {
+                carousel.style.display = "none";
+                finalText.style.display = "block";
+            } else {
+                currentIndex++;
+                carouselImage.src = images[currentIndex];
+            }
+        }
+
+        function prevImage() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                carouselImage.src = images[currentIndex];
+            }
+        }
+
+        /* Corações voando */
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (20 + Math.random() * 20) + "px";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
+
+</body>
+</html>
